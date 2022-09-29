@@ -16,6 +16,7 @@ from torch.autograd import Variable
 import matplotlib
 from models.mlp import MTDataset, myMLP
 
+
 from models.linear_regressor import LinearRegressor
 
 def read_csv(path):
