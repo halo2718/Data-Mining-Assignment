@@ -14,4 +14,5 @@ print(df.shape)
 df.drop_duplicates()
 print(df.shape)
 print(df.describe())
+
 sns.relplot(data=df, x=' n_tokens_title', y=' shares')
