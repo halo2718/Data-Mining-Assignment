@@ -6,9 +6,6 @@ class LinearRegressor():
     def solve(self):
         self.w = np.linalg.lstsq(self.x, self.y, rcond=None)[0]
     def predict(self, new_x):
-        '''
-        new_x: [1, seq]
-        '''
         return new_x.dot(self.w)
 
 if __name__ == '__main__':

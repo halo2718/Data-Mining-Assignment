@@ -75,84 +75,84 @@ if __name__ == "__main__":
 
     print(new_content[0])
     
-    # raw_label   = np.array(list(map(float, get_raw_label(content))))
-    # label = get_label(new_content)
-    # new_content = remove_label(new_content)
-    # new_content = list2np_float(new_content)
-    # train_set, train_label, test_set, test_label = get_split(new_content, raw_label)
-    # # lr = LinearRegressor(train_set, train_label)
-    # # lr.solve()
-    # # pred = lr.predict(test_set)
-    # # pred = np.where(pred >= 1400, 1, 0)
-    # # gt   = np.where(test_label >= 1400, 1, 0)
+    raw_label   = np.array(list(map(float, get_raw_label(content))))
+    label = get_label(new_content)
+    new_content = remove_label(new_content)
+    new_content = list2np_float(new_content)
+    train_set, train_label, test_set, test_label = get_split(new_content, raw_label)
+    # lr = LinearRegressor(train_set, train_label)
+    # lr.solve()
+    # pred = lr.predict(test_set)
+    # pred = np.where(pred >= 1400, 1, 0)
+    # gt   = np.where(test_label >= 1400, 1, 0)
 
-    # # print("acc: {}".format(np.sum(np.abs(pred - gt)) / pred.shape[0]))
-    # col_max, col_min, train_set = min_max_normalizer(train_set, mode='train')
-    # test_set = min_max_normalizer(test_set, mode='test', train_max=col_max, train_min=col_min)
-    # train_label = np.where(train_label >= 1400, 1, 0)
-    # test_label = np.where(test_label >= 1400, 1, 0)
-
-
-    # train_loader=DataLoader(dataset=MTDataset(train_set,train_label), batch_size=8, shuffle=True)
-    # test_loader =DataLoader(dataset=MTDataset(test_set,test_label),   batch_size=8, shuffle=False)
-
-    # ccnt = 0
-    # # plt.plot([i for i in range(len(train_y))], train_y, "r")
-    # # plt.plot([i for i in range(len(train_y), len(train_y) + len(val_y))], val_y, "g")
-    # # plt.plot([i for i in range(len(train_y) + len(val_y), len(train_y) + len(val_y) + len(test_y))], test_y, "b")
-    # # plt.show()
-    # # GPU
-    # gpu = torch.cuda.is_available()
+    # print("acc: {}".format(np.sum(np.abs(pred - gt)) / pred.shape[0]))
+    col_max, col_min, train_set = min_max_normalizer(train_set, mode='train')
+    test_set = min_max_normalizer(test_set, mode='test', train_max=col_max, train_min=col_min)
+    train_label = np.where(train_label >= 1400, 1, 0)
+    test_label = np.where(test_label >= 1400, 1, 0)
 
 
-    # model = myMLP()
+    train_loader=DataLoader(dataset=MTDataset(train_set,train_label), batch_size=8, shuffle=True)
+    test_loader =DataLoader(dataset=MTDataset(test_set,test_label),   batch_size=8, shuffle=False)
 
-    # criterion = torch.nn.CrossEntropyLoss()  
-    # optimizer = optim.Adam(model.parameters(), lr = 0.0001)  # 优化器
-    # model = model.cuda()
+    ccnt = 0
+    # plt.plot([i for i in range(len(train_y))], train_y, "r")
+    # plt.plot([i for i in range(len(train_y), len(train_y) + len(val_y))], val_y, "g")
+    # plt.plot([i for i in range(len(train_y) + len(val_y), len(train_y) + len(val_y) + len(test_y))], test_y, "b")
+    # plt.show()
+    # GPU
+    gpu = torch.cuda.is_available()
 
-    # for epoch in range(500):
-    #     total_loss = 0
-    #     tot = 0
-    #     cor = 0
-    #     model.train()
-    #     for idx, (data, label) in enumerate(train_loader):
-    #         optimizer.zero_grad()
-    #         data = data.squeeze(1).cuda()
-    #         label = label.cuda()
-    #         pred = model(data)
-    #         pred_label = torch.argmax(pred, dim=1).long()
-    #         loss = criterion(pred,label.long())
-    #         tcor = pred_label.shape[0] - torch.sum(torch.abs(pred_label - label))
-    #         # print(cor)
-    #         # print(pred_label)
-    #         # print(label)
-    #         loss.backward()
-    #         optimizer.step()
-    #         cor += tcor 
-    #         tot += pred_label.shape[0]
-    #         if idx % 100 == 0:
-    #             print('Epoch {} Iter {}: Loss {} Acc {}'.format(epoch, idx, loss, cor / tot))
-    #     model.eval()
-    #     tot_test = 0
-    #     cor_test = 0
-    #     with torch.no_grad():
-    #         for idx, (data, label) in enumerate(test_loader):
-    #             data = data.squeeze(1).cuda()
-    #             label = label.cuda()
-    #             pred = model(data)
-    #             pred_label = torch.argmax(pred, dim=1).long()
-    #             tcor = pred_label.shape[0] - torch.sum(torch.abs(pred_label - label))
-    #             cor_test += tcor 
-    #             tot_test += pred_label.shape[0]
-    #     print("============ Epoch {} + Training Acc {} + Test Acc {} ============".format(epoch, cor / tot, cor_test / tot_test))
-    #     # print("============ Epoch {} Acc {} ============".format(epoch, cor / tot))
-    #     # print(labe_np.shape)
-    #         # plt.plot(preds_t,"r")
-    #         # plt.plot(labels_t,"b")
-    #         # plt.show()
-    #         # plt.close('all')
-    # # 保存模型
-    # # torch.save(model, opt.save_name)
 
-    #     # 测试模型
+    model = myMLP()
+
+    criterion = torch.nn.CrossEntropyLoss()  
+    optimizer = optim.Adam(model.parameters(), lr = 0.0001)  # 优化器
+    model = model.cuda()
+
+    for epoch in range(500):
+        total_loss = 0
+        tot = 0
+        cor = 0
+        model.train()
+        for idx, (data, label) in enumerate(train_loader):
+            optimizer.zero_grad()
+            data = data.squeeze(1).cuda()
+            label = label.cuda()
+            pred = model(data)
+            pred_label = torch.argmax(pred, dim=1).long()
+            loss = criterion(pred,label.long())
+            tcor = pred_label.shape[0] - torch.sum(torch.abs(pred_label - label))
+            # print(cor)
+            # print(pred_label)
+            # print(label)
+            loss.backward()
+            optimizer.step()
+            cor += tcor 
+            tot += pred_label.shape[0]
+            # if idx % 100 == 0:
+            #     print('Epoch {} Iter {}: Loss {} Acc {}'.format(epoch, idx, loss, cor / tot))
+        model.eval()
+        tot_test = 0
+        cor_test = 0
+        with torch.no_grad():
+            for idx, (data, label) in enumerate(test_loader):
+                data = data.squeeze(1).cuda()
+                label = label.cuda()
+                pred = model(data)
+                pred_label = torch.argmax(pred, dim=1).long()
+                tcor = pred_label.shape[0] - torch.sum(torch.abs(pred_label - label))
+                cor_test += tcor 
+                tot_test += pred_label.shape[0]
+        print("============ Epoch {} + Training Acc {} + Test Acc {} ============".format(epoch, cor / tot, cor_test / tot_test))
+        # print("============ Epoch {} Acc {} ============".format(epoch, cor / tot))
+        # print(labe_np.shape)
+            # plt.plot(preds_t,"r")
+            # plt.plot(labels_t,"b")
+            # plt.show()
+            # plt.close('all')
+    # 保存模型
+    # torch.save(model, opt.save_name)
+
+        # 测试模型
