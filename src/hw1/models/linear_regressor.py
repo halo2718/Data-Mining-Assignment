@@ -4,12 +4,7 @@ class LinearRegressor():
     def __init__(self, x, y) -> None:
         self.x, self.y = x, y
     def solve(self):
-        # print("***************************")
-        # print(self.x.shape)
-        # print(self.y.shape)
         self.w = np.linalg.lstsq(self.x, self.y, rcond=None)[0]
-        # print(self.w.shape)
-        # print("+++++++++++++++++++++++++++")
     def predict(self, new_x):
         '''
         new_x: [1, seq]
