@@ -1,2 +1,2 @@
 # Data-Mining-Assignment
-This is the assignments of my graduate course Data Mining.
+These are the assignments of my graduate course Data Mining.
