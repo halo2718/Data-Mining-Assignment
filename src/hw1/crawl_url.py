@@ -64,7 +64,7 @@ print(wrong_idx)
 #         json_info[i] = content
 #     wrong_idx = copy.deepcopy(tmp_idx)
 
-with open("./crawl/"+str(args.start)+"/data.json", "w") as F:
+with open("./crawls/"+str(args.start)+"/data.json", "w") as F:
     json.dump(json_info, F)
 
 print(wrong_idx)
